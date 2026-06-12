@@ -2,7 +2,7 @@
   "name": "tw-script",
   "displayName": "tw-script",
   "description": "Language extension for working with Medieval 2: Total War text files",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -17,10 +17,12 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
+    "package": "vsce package",
     "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
     "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "3.9.2",
     "@types/node": "^18.0.0",
     "typescript": "^5.0.0"
   },
@@ -33,6 +35,7 @@
         ],
         "extensions": [
           "campaign_script.txt",
+          "export_descr_unit.txt",
           "export_descr_buildings.txt",
           "export_descr_ancillaries.txt",
           "export_descr_character_traits.txt",

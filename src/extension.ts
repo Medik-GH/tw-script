@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { addUnitFileInlayHints, isUnitFile } from './unitFieldHints';
 
 export function activate(context: vscode.ExtensionContext) {
     const provider = new TWScriptInlayHintsProvider();
@@ -143,6 +144,7 @@ class TWScriptInlayHintsProvider implements vscode.InlayHintsProvider {
         token: vscode.CancellationToken
     ): vscode.InlayHint[] {
         const hints: vscode.InlayHint[] = [];
+        const unitFile = isUnitFile(document);
 
         for (let lineNum = range.start.line; lineNum <= range.end.line; lineNum++) {
             if (token.isCancellationRequested) {
@@ -154,6 +156,11 @@ class TWScriptInlayHintsProvider implements vscode.InlayHintsProvider {
 
             // Skip comment lines
             if (text.trim().startsWith(';') || text.trim().startsWith('¬')) {
+                continue;
+            }
+
+            if (unitFile) {
+                addUnitFileInlayHints(text, lineNum, hints);
                 continue;
             }
 
